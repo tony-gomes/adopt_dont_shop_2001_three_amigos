@@ -1,0 +1,10 @@
+<section>
+  <h2><%= @shelter.name %></h2>
+  <p>Address:</p>
+  <%= @shelter.address %><br/>
+  <%= @shelter.city %>, <%= @shelter.state %> <%= @shelter.zip %><br/>
+
+  <div class="shelter_options"><%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %></div>
+  <div class="shelter_options"><%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", :method => :delete %></div>
+  <div class="shelter_options"><%= link_to "See Our Pets", "/shelters/#{@shelter.id}/pets" %></div>
+</section>

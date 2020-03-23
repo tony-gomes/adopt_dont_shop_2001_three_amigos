@@ -1,0 +1,2 @@
+class Shelterpet < ApplicationRecord
+end

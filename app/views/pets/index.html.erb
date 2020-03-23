@@ -1,0 +1,14 @@
+<h1>Pets</h1>
+<section>
+  <% @pets.each do |pet| %>
+  <div class="pet_block">
+    <div class="pet_image"><%= image_tag ( pet.image ) %></div>
+    <h2><%= link_to pet.name, "/pets/#{pet.id}" %></h2>
+    <p>Age: <%= pet.age %></p>
+    <p>Sex: <%= pet.sex %></p>
+    <p>Located at: <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter.id}" %><br>
+    <%= link_to "Edit Pet", "/pets/#{pet.id}/edit" %>
+    <%= link_to "Delete Pet", "/pets/#{pet.id}", method: :delete %><br/>
+  </div>
+  <% end %>
+</section>

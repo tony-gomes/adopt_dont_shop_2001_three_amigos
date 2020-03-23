@@ -1,0 +1,12 @@
+
+<section>
+  <%= image_tag ( @pet.image ) %>
+  <h2><%= @pet.name %></h2>
+  Status: <%= @pet.adopt_status %><br/>
+  <p>About <%= @pet.name %> :</p>
+  <p><%= @pet.description %></p>
+  Age: <%= @pet.age %><br/>
+  Sex: <%= @pet.sex %><br/>
+  <p><%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
+  <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
+</section>

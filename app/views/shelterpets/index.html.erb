@@ -3,7 +3,7 @@
 <%= link_to "Create Pet", "/shelters/#{@shelter.id}/pets/new" %><br/>
 
 <section>
-<% @pets.each do |pet| %>
+<% @shelter.pets.each do |pet| %>
     <div class="pet_block">
     <div class="pet_image"><%= image_tag ( pet.image ) %></div>
     <h2><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h2>

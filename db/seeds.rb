@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Pet.destroy_all
 Shelter.destroy_all
 
@@ -44,7 +45,7 @@ pet_3 = shelter_2.pets.create!(name: "Huckleberry",
 
 # Shelter Reviews
 
-review1_ = shelter_1.reviews.create!(review_image: "https://via.placeholder.com/150",
+review_1 = shelter_1.reviews.create!(review_image: "https://via.placeholder.com/150",
                                    title: "test review 1",
                                    rating: 1,
                                    content: "Donec at purus porttitor nibh hendrerit vulputate vitae et arcu. Aenean viverra faucibus lectus, eget consectetur mi lobortis in. Aliquam consectetur justo vel justo dignissim pretium.")
@@ -63,6 +64,7 @@ review_4 = shelter_2.reviews.create!(review_image: "https://via.placeholder.com/
                                    title: "test review 4",
                                    rating: 4,
                                    content: "In sit amet turpis iaculis, vulputate purus vel, malesuada nisi. Nam molestie pellentesque lorem. Aliquam elementum aliquet tempus.")
+
 review_5 = shelter_2.reviews.create!(review_image: "https://via.placeholder.com/149",
                                    title: "test review 5",
                                    rating: 4,

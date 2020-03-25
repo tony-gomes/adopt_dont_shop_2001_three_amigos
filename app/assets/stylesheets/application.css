@@ -109,7 +109,8 @@ img {
 }
 
 form {
-  width: 300px;
+  width: 400px;
+  text-align: left;
 }
 
 label + input {

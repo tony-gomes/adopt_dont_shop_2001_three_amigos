@@ -116,3 +116,15 @@ label + input {
   float: right;
   width: 200px;
 }
+
+.error_message {
+  background-color: maroon;
+  color: whitesmoke;
+  padding: 20px;
+  display: inline-block;
+  float: left;
+  width: 50%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: left;
+}

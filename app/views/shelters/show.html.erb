@@ -11,11 +11,13 @@
   <section class="review-section">
     <%= link_to ("New Review"), "/shelters/#{@shelter.id}/reviews/new" %>
     <% @shelter.reviews.each do |review| %>
-      <%= image_tag ( review.review_image ) %>
-      <%= review.title %>
-      Rating: <%= review.rating %>
-      <%= review.content %>
+      <div id="review-<%= review.id %>">
+        <%= link_to ("Edit Review"), "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+        <%= image_tag ( review.review_image ) %>
+        <%= review.title %>
+        Rating: <%= review.rating %>
+        <%= review.content %>
+      </div>
     <% end %>
   </section>
-
 </section>

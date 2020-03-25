@@ -9,10 +9,11 @@
   <div class="shelter_options"><%= link_to "See Our Pets", "/shelters/#{@shelter.id}/pets" %></div>
 
   <section class="review-section">
+    <%= link_to ("New Review"), "/shelters/#{@shelter.id}/reviews/new" %>
     <% @shelter.reviews.each do |review| %>
       <%= image_tag ( review.review_image ) %>
       <%= review.title %>
-      <%= review.rating %>
+      Rating: <%= review.rating %>
       <%= review.content %>
     <% end %>
   </section>

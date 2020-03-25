@@ -6,13 +6,17 @@ class ReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:shelter_id])
-    shelter.reviews.create(review_params)
     if shelter.reviews.create(review_params).valid?
       redirect_to "/shelters/#{shelter.id}"
     else
       redirect_back(fallback_location: root_path)
       flash[:error] = "Review must include a title, rating, and content to be submitted."
     end
+  end
+
+  def destroy
+    Review.destroy(params[:review_id])
+    redirect_to "/shelters/#{params[:shelter_id]}"
   end
 
   private

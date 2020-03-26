@@ -1,0 +1,19 @@
+<h2>Add New Review</h2>
+<section>
+  <% flash.each do |name, msg| %>
+    <div class="error_message"><%= msg %></div>
+  <% end %>
+  <%= form_tag("/shelters/#{@shelter.id}/reviews", method: :post)  do %>
+
+    <%= label_tag "Title" %>
+    <%= text_field_tag :title %><br/>
+    <%= label_tag "Rating" %>
+    <%= text_field_tag :rating %><br/>
+    <%= label_tag "Content" %>
+    <%= text_field_tag :content %><br/>
+    <%= label_tag "Image (optional)" %>
+    <%= text_field_tag :review_image %><br/>
+
+    <%= submit_tag "Submit Review" %>
+  <% end %>
+</section>

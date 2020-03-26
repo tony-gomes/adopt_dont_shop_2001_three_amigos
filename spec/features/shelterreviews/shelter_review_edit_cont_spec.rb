@@ -20,8 +20,7 @@ RSpec.describe "when I don't enter required information I get an error message" 
 
       visit "/shelters/#{@shelter_1.id}/reviews/#{@review_1.id}/edit"
 
-      fill_in 'title', with: "review title"
-      fill_in 'rating', with: 5
+      fill_in 'content', with: ""
 
       click_button "Submit Review"
 
@@ -45,11 +44,10 @@ RSpec.describe "when I don't enter required information I get an error message" 
 
       describe "title is also required" do
         it "and will also give an error if not filled in" do
-          
+
       visit "/shelters/#{@shelter_1.id}/reviews/#{@review_1.id}/edit"
 
-      fill_in 'rating', with: 5
-      fill_in 'content', with: "review content"
+      fill_in 'title', with: ""
 
       click_button "Submit Review"
 
@@ -75,8 +73,7 @@ RSpec.describe "when I don't enter required information I get an error message" 
 
       visit "/shelters/#{@shelter_1.id}/reviews/#{@review_1.id}/edit"
 
-      fill_in 'title', with: "review title"
-      fill_in 'content', with: "review content"
+      fill_in 'rating', with: ""
 
       click_button "Submit Review"
 

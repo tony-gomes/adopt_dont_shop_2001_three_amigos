@@ -1,6 +1,10 @@
 <h2>Edit Review</h2>
 
 <section id="edit-review-#{review.id}">
+  <% flash.each do |name, msg| %>
+    <div class="error_message"><%= msg %></div>
+  <% end %>
+
   <%= form_tag("/shelters/#{@review.shelter_id}/reviews/#{@review.id}", method: :patch)  do %>
 
     <%= label_tag "Title" %>

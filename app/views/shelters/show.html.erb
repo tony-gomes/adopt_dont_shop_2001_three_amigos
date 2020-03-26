@@ -7,16 +7,18 @@
   <div class="shelter_options"><%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %></div>
   <div class="shelter_options"><%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", :method => :delete %></div>
   <div class="shelter_options"><%= link_to "See Our Pets", "/shelters/#{@shelter.id}/pets" %></div>
-  <div class="shelter_options"><%= link_to ("New Review"), "/shelters/#{@shelter.id}/reviews/new" %></div>
 
   <section class="review-section">
-    <% @shelter.reviews.each do |review| %><br/>
-      <%= image_tag ( review.review_image ) %><br/>
-      <%= review.title %><br/>
-      Rating: <%= review.rating %><br/>
-      <%= review.content %><br/>
-      <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete%>
+    <%= link_to ("New Review"), "/shelters/#{@shelter.id}/reviews/new" %>
+    <% @shelter.reviews.each do |review| %>
+      <div id="review-<%= review.id %>">
+        <%= link_to ("Edit Review"), "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+        <%= image_tag ( review.review_image ) %>
+        <%= review.title %>
+        Rating: <%= review.rating %>
+        <%= review.content %>
+        <%= link_to ("Delete Review"), "/shelters/#{@shelter.id}/reviews/#{review.id}}", method: :delete %>
+      </div>
     <% end %>
   </section>
-
 </section>

@@ -14,9 +14,17 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def update
+    review = Review.find(params[:review_id])
+    review.update(review_params)
+    redirect_to "/shelters/#{@review.shelter_id}"
+  end
+
   def destroy
     Review.destroy(params[:review_id])
     redirect_to "/shelters/#{params[:shelter_id]}"
+  def edit
+    @review = Review.find(params[:review_id])
   end
 
   private
@@ -24,5 +32,4 @@ class ReviewsController < ApplicationController
   def review_params
     params.permit(:title, :rating, :content, :review_image)
   end
-
 end

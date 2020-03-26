@@ -17,6 +17,7 @@
         <%= review.title %>
         Rating: <%= review.rating %>
         <%= review.content %>
+        <%= link_to ("Delete Review"), "/shelters/#{review.shelter_id}/reviews/#{review.id}", method: :delete %>
       </div>
     <% end %>
   </section>

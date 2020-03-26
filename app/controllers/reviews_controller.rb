@@ -6,7 +6,6 @@ class ReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:shelter_id])
-    shelter.reviews.create(review_params)
     if shelter.reviews.create(review_params).valid?
       redirect_to "/shelters/#{shelter.id}"
     else
@@ -14,16 +13,22 @@ class ReviewsController < ApplicationController
       flash[:error] = "Review must include a title, rating, and content to be submitted."
     end
   end
-
+  
   def edit
     @review = Review.find(params[:review_id])
   end
 
   def update
-    @review = Review.find(params[:review_id])
-    @review.update(review_params)
-    redirect_to "/shelters/#{@review.shelter_id}"
+    review = Review.find(params[:review_id])
+    review.update(review_params)
+    redirect_to "/shelters/#{review.shelter_id}"
   end
+
+  def destroy
+    Review.destroy(params[:review_id])
+    redirect_to "/shelters/#{params[:shelter_id]}"
+  end
+
 
   private
 

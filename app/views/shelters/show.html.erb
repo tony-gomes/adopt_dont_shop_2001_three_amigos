@@ -12,11 +12,11 @@
     <%= link_to ("New Review"), "/shelters/#{@shelter.id}/reviews/new" %>
     <% @shelter.reviews.each do |review| %>
       <div id="review-<%= review.id %>">
-        <%= link_to ("Edit Review"), "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
-        <%= image_tag ( review.review_image ) %>
+        <%= image_tag ( review.review_image ) %><br/>
         <%= review.title %>
-        Rating: <%= review.rating %>
-        <%= review.content %>
+        <%= link_to ("Edit Review"), "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br/>
+        Rating: <%= review.rating %><br/>
+        <%= review.content %><br/>
         <%= link_to ("Delete Review"), "/shelters/#{review.shelter_id}/reviews/#{review.id}", method: :delete %>
       </div>
     <% end %>

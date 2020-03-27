@@ -1,8 +1,8 @@
 <section>
   <%= image_tag ( @pet.image ) %>
   <h2><%= @pet.name %></h2>
-  <%= link_to "Favorite Pet", "/favorite/#{@pet.id}", method: :patch %>
   Status: <%= @pet.adopt_status %><br/>
+  <%= link_to "Favorite Pet", "/favorite/#{@pet.id}", method: :patch %>
   <p>About <%= @pet.name %> :</p>
   <p><%= @pet.description %></p>
   Age: <%= @pet.age %><br/>

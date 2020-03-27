@@ -1,7 +1,7 @@
-
 <section>
   <%= image_tag ( @pet.image ) %>
   <h2><%= @pet.name %></h2>
+  <%= link_to "Favorite Pet", "/favorite/#{@pet.id}", method: :patch %>
   Status: <%= @pet.adopt_status %><br/>
   <p>About <%= @pet.name %> :</p>
   <p><%= @pet.description %></p>
@@ -9,4 +9,7 @@
   Sex: <%= @pet.sex %><br/>
   <p><%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
+  <% flash.each do |name, msg| %>
+  <div class="well_done"><%= msg %></div>
+  <% end %>
 </section>

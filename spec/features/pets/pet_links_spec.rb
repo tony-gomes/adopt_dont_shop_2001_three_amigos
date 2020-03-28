@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "when i click on the name of a shleter", type: :feature do
+RSpec.describe "when i click on the name of a shelter", type: :feature do
   it "brings me to the shelters show page" do
     shelter_1 = Shelter.create(name: "Dog-Haven",
                                address:  "1234 Barkers Way",
@@ -22,7 +22,7 @@ RSpec.describe "when i click on the name of a shleter", type: :feature do
 
     visit "/shelters/#{shelter_1.id}/pets"
       expect(page).to have_content("#{pet_1.name}")
-      
+
     click_link "#{pet_1.name}"
       expect(current_path).to eq("/pets/#{pet_1.id}")
   end

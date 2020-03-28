@@ -44,7 +44,7 @@ RSpec.describe "when I visit a pets show page there is a favorite link next to e
 
     it "when a pet is favorited the favorite indiciator on the nav bar incrementes by 1" do
 
-      visit "/pets/#{@pet_2.id}"
+      visit "/pets/#{@pet_1.id}"
 
         within "nav" do
           expect(page).to have_content("Favorite Pets: 0")
@@ -56,6 +56,20 @@ RSpec.describe "when I visit a pets show page there is a favorite link next to e
 
         within "nav" do
           expect(page).to have_content("Favorite Pets: 1")
+        end
+
+      visit "/pets/#{@pet_2.id}"
+
+        within "nav" do
+          expect(page).to have_content("Favorite Pets: 1")
+        end
+
+        within "section" do
+          click_link "Favorite Pet"
+        end
+
+        within "nav" do
+          expect(page).to have_content("Favorite Pets: 2")
         end
     end
   end

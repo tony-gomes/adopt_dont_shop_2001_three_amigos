@@ -1,7 +1,7 @@
 class Favorite
   attr_reader :contents
 
-  def initialize(initial_contents)
+  def initialize(initial_contents = Array.new)
     @contents = initial_contents || Array.new
   end
 

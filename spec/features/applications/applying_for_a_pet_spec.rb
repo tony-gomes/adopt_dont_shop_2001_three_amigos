@@ -38,12 +38,12 @@ RSpec.describe "When I have added pets to my favorites list and and I visit my f
           click_link "Favorite Pet"
         end
 
-        visit "/pets/#{pet_3.id}"
-
-        within "section" do
-          click_link "Favorite Pet"
-        end
-
+        # visit "/pets/#{pet_3.id}"
+        #
+        # within "section" do
+        #   click_link "Favorite Pet"
+        # end
+        #
         visit("/favorites")
 
         click_link "Adopt Favorite Pets"

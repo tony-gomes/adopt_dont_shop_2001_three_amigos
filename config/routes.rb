@@ -27,7 +27,8 @@ Rails.application.routes.draw do
 
   get '/favorites', to: 'favorites#index'
   patch '/favorites/:pet_id', to: 'favorites#update'
-  
+
   get '/pet_applications/new', to: 'pet_applications#new'
+  post '/pet_applications', to: 'pet_applications#create'
 
 end

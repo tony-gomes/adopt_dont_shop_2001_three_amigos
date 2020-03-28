@@ -1,9 +1,16 @@
 <h1>Your Favorite Pets</h1>
 <section>
+  <% if favorite.total_count > 0 %>
     <% @favorited.each do |pet| %>
-    <div class="pet_block">
-      <%= image_tag(pet.image) %><br/>
-      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
-    </div>
+      <div class="pet_block">
+        <%= image_tag(pet.image) %><br/>
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
+      </div>
     <% end %>
+  <% else %>
+    <h3>You Have No Favorite Pets</h3>
+  <% end %>
 </section>
+<div id="unfavorite-link">
+      <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
+</div>

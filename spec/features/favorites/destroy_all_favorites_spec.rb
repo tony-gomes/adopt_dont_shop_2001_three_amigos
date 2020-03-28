@@ -25,30 +25,29 @@ RSpec.describe 'as a visitor with multiple favorites' do
       sex: "Female",
       image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/sydney.jpg"
       )
-
-    visit '/'
-
-    within 'nav' do
-      click_link "/favorites"
-    end
   end
 
   describe 'when I visit favorites index I see a link to remove all favorited pets' do
     describe 'when I click that link I am redirected back to /favorites' do
       it 'have no favorited pets is displayed & favorites indicator resets' do
 
-        expect(current_path).to eq('/favorites')
-
-        within 'section' do
-          click_link REMOVEALLPETSLINK?
-        end
-
-        expect(current_path).to eq('/favorites')
-        # expect(controller).to set_flash[:no_favorites]
-        # expect(page).to have_content('You Have No Favorites')
+        visit '/'
 
         within 'nav' do
-          expect(page).to have_link("/favorites")
+          # click_link "/favorites"
+          click_link "Favorite Pet"
+        end
+
+        expect(current_path).to eq("/favorites")
+
+        within '#unfavorite-link' do
+          click_link "Unfavorite All Pets"
+        end
+
+        expect(current_path).to eq("/favorites")
+        expect(page).to have_content("You Have No Favorite Pets")
+
+        within 'nav' do
           expect(page).to have_content("Favorite Pets: 0")
         end
       end

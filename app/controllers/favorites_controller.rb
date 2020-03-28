@@ -1,4 +1,4 @@
-class FavoriteController < ApplicationController
+class FavoritesController < ApplicationController
 
   def index
     @favorited = favorite.contents.map do |id|
@@ -19,10 +19,11 @@ class FavoriteController < ApplicationController
     favorite.remove_pet(pet.id)
     session[:favorite] = @favorite.contents
     flash[:pet_fav] = "Pet removed from favorites."
-    # redirect_to or render?
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     favorite.remove_all_pets
+    redirect_back(fallback_location: root_path)
   end
 end

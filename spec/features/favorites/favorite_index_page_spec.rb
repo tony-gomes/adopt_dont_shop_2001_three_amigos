@@ -31,7 +31,7 @@ RSpec.describe "when I have favorited pets and i visit my favorites index page",
       click_link "Favorite Pet"
     end
 
-    visit "/favorite"
+    visit "/favorites"
 
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_css("img[src*='#{pet_1.image}']")
@@ -44,7 +44,7 @@ RSpec.describe "when I have favorited pets and i visit my favorites index page",
       click_link "Favorite Pet"
     end
 
-    visit "/favorite"
+    visit "/favorites"
 
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_css("img[src*='#{pet_1.image}']")

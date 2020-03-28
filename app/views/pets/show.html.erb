@@ -3,12 +3,11 @@
   <h2><%= @pet.name %></h2>
   Status: <%= @pet.adopt_status %><br/>
 
-  if !favorite_check
-    <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
-  elseif favorite_check
-    <%= link_to "Remove Pet", "/favorites/#{@pet.id}", method: :delete %>
-  end
-
+  <% if favorite.check_pet("#{@pet.id}") %>
+    <%= link_to "Remove Favorite", "/favorites/#{@pet.id}", method: :delete %>
+  <% else %>
+    <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :post %>
+  <% end %>
 
   <p>About <%= @pet.name %> :</p>
   <p><%= @pet.description %></p>

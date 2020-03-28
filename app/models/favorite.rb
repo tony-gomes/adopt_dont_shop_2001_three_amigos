@@ -9,19 +9,15 @@ class Favorite
     @contents.length
   end
 
-  def favorite_check(pet_id)
+  def check_pet(pet_id)
     @contents.include?(pet_id)
   end
 
   def add_pet(pet_id)
-    if !@contents.include?(pet_id)
-      @contents << pet_id
-    end
+   @contents.push(pet_id) unless @contents.include?(pet_id)
   end
 
   def remove_pet(pet_id)
-    if @contents.include?(pet_id)
-      @contents.delete(pet_id)
-    end
+   @contents.delete(pet_id) if @contents.include?(pet_id)
   end
 end

@@ -4,7 +4,7 @@
   <%= label_tag(:select_pet, "#{pet.name}") %><br/>
 <% end %>
 <section>
-  <%= form_tag "/pet_applications/#{app.id}", method: :post do %>
+  <%= form_tag "/pet_applications/", method: :post do %>
     <%= label_tag "Name: "%>
     <%= text_field_tag :name %><br/>
     <%= label_tag "Address: " %>

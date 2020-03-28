@@ -15,4 +15,10 @@ class Favorite
     end
   end
 
+  def load_favorite_pets
+    @contents.map do |id|
+      Pet.find(id)
+    end
+  end
+
 end

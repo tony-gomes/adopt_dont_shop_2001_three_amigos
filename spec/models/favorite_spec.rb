@@ -21,4 +21,36 @@ RSpec.describe Favorite do
       expect(favorite.contents).to eq([1,2,3,4,5,6,7])
     end
   end
+
+  describe "#load_favorite_pets" do
+    it "returns the pet id for all favorited pets" do
+      shelter_1 = Shelter.create(
+        name: "Dog-Haven",
+        address:  "1234 Barkers Way",
+        city: "Beagle",
+        state: "MA",
+        zip: "01001")
+
+      pet_1 = shelter_1.pets.create!(
+        name: "Charlotte",
+        age: 13,
+        sex: "Female",
+        image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/charlotte.jpg")
+
+      pet_2 = shelter_1.pets.create!(
+        name: "Sydney",
+        age: 13,
+        sex: "Female",
+        image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/sydney.jpg")
+
+      favorite = Favorite.new()
+
+      expect(favorite.load_favorite_pets).to eq([])
+
+      favorite.add_pet(pet_1.id)
+
+      expect(favorite.load_favorite_pets).to eq([pet_1])
+    end
+  end
+
 end

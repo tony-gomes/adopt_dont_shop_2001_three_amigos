@@ -4,9 +4,15 @@
   Status: <%= @pet.adopt_status %><br/>
 
   <% if favorite.check_pet("#{@pet.id}") %>
+<<<<<<< HEAD
     <%= link_to "Remove Favorite", "/favorites/#{@pet.id}", method: :delete %>
   <% else %>
     <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :post %>
+=======
+    <%= link_to "Remove Favorite", "/favorite/#{@pet.id}", method: :delete %>
+  <% else %>
+    <%= link_to "Favorite Pet", "/favorite/#{@pet.id}", method: :post %>
+>>>>>>> e64beeee15f0ab7601ab2db620ad12aeedacefff
   <% end %>
 
   <p>About <%= @pet.name %> :</p>
@@ -17,5 +23,6 @@
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
   <% flash.each do |name, msg| %>
   <div class="well_done"><%= msg %></div>
+  <div class="favorite_removed"><%= msg %></div>
   <% end %>
 </section>

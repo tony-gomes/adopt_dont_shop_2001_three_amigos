@@ -2,7 +2,14 @@
   <%= image_tag ( @pet.image ) %>
   <h2><%= @pet.name %></h2>
   Status: <%= @pet.adopt_status %><br/>
-  <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
+
+  if !favorite_check
+    <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
+  elseif favorite_check
+    <%= link_to "Remove Pet", "/favorites/#{@pet.id}", method: :delete %>
+  end
+
+
   <p>About <%= @pet.name %> :</p>
   <p><%= @pet.description %></p>
   Age: <%= @pet.age %><br/>
@@ -11,5 +18,6 @@
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
   <% flash.each do |name, msg| %>
   <div class="well_done"><%= msg %></div>
+  <div class="favorite_removed"><%= msg %></div>
   <% end %>
 </section>

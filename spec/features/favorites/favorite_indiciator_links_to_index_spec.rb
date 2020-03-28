@@ -36,7 +36,7 @@ RSpec.describe "when I click on the favorite indicator on the nav bar", type: :f
       click_link "Favorite Pets: 1"
     end
 
-    expect(current_path).to eq("/favorites")
+    expect(current_path).to eq("/favorite")
 
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_css("img[src*='#{pet_1.image}']")

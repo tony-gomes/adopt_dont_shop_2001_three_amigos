@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
     end
   end
 
-  def update
+  def create
     pet = Pet.find(params[:pet_id])
     favorite.add_pet(pet.id)
     session[:favorite] = @favorite.contents
@@ -15,6 +15,14 @@ class FavoritesController < ApplicationController
   end
 
   def new
+  end
+
+  def update
+    pet = Pet.find(params[:pet_id])
+    favorite.remove_pet(pet.id)
+    session[:favorite] = @favorite.contents
+    flash[:pet_fav] = "Pet removed from favorites."
+    redirect_back(fallback_location: root_path)
   end
 
 end

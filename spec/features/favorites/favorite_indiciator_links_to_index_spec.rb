@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "when I have favorited pets and i visit my favorites index page", type: :feature do
-  it "I see all the pets I've favorited" do
+RSpec.describe "when I click on the favorite indicator on the nav bar", type: :feature do
+  it "I am taken to the favorite index page" do
 
     shelter_1 = Shelter.create!(
       name: "Dog-Haven",
@@ -25,18 +25,22 @@ RSpec.describe "when I have favorited pets and i visit my favorites index page",
       sex: "Female",
       image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/sydney.jpg")
 
+
     visit "/pets/#{pet_1.id}"
 
     within "section" do
       click_link "Favorite Pet"
     end
 
-    visit "/favorite"
+    within "nav" do
+      click_link "Favorite Pets: 1"
+    end
+
+    expect(current_path).to eq("/favorite")
 
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_css("img[src*='#{pet_1.image}']")
-    expect(page).to_not have_content("#{pet_2.name}")
-    expect(page).to_not have_css("img[src*='#{pet_2.image}']")
+
 
     visit "/pets/#{pet_2.id}"
 
@@ -44,12 +48,20 @@ RSpec.describe "when I have favorited pets and i visit my favorites index page",
       click_link "Favorite Pet"
     end
 
-    visit "/favorite"
+    within "nav" do
+      click_link "Favorite Pets: 2"
+    end
+
+    expect(current_path).to eq("/favorite")
 
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_css("img[src*='#{pet_1.image}']")
     expect(page).to have_content("#{pet_2.name}")
     expect(page).to have_css("img[src*='#{pet_2.image}']")
+
+    click_link "#{pet_1.name}"
+
+    expect(current_path).to eq("/pets/#{pet_1.id}")
 
   end
 end

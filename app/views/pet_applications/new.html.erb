@@ -1,10 +1,12 @@
 <h1>Apply for a pet</h1>
-<% @favorite_pets.each do |pet| %>
-  <%= check_box_tag(:select_pet) %>
-  <%= label_tag(:select_pet, "#{pet.name}") %><br/>
-<% end %>
 <section>
   <%= form_tag "/pet_applications/", method: :post do %>
+    <% @favorite_pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+      <%= check_box_tag("pet_id[]", "#{pet.id}") %>
+      <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
+    </div>
+    <% end %>
     <%= label_tag "Name: "%>
     <%= text_field_tag :name %><br/>
     <%= label_tag "Address: " %>
@@ -15,8 +17,10 @@
     <%= text_field_tag :state %><br/>
     <%= label_tag "Zip: " %>
     <%= text_field_tag :zip %><br/>
+    <%= label_tag "Phone Number: " %>
+    <%= text_field_tag :phone_number %><br/>
     <%= label_tag "Description: " %>
     <%= text_field_tag :description %><br/><br/>
-    <%= submit_tag "Click to Apply" %>
+    <%= submit_tag "Submit Application" %>
   <% end %>
 </section>

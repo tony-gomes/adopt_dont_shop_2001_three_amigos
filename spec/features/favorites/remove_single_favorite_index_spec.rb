@@ -54,7 +54,7 @@ RSpec.describe "As a visitor", type: :feature do
           click_link "Favorite Pet"
         end
 
-        expect(current_path).to eq("/favorite")
+        expect(current_path).to eq("/favorites")
 
         within 'section' do
           expect(page.all('pet_block')[0]).to have_link("Remove Favorite")
@@ -70,7 +70,7 @@ RSpec.describe "As a visitor", type: :feature do
 
     describe "I am redirected back to favorites where I no longer see that pet" do
       it "I also see that the favorites indicator has decremented by 1" do
-        expect(current_path).to eq("/favorite")
+        expect(current_path).to eq("/favorites")
 
         within "nav" do
           expect(page).to have_content("Favorite Pets: 0")

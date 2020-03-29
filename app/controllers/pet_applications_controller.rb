@@ -18,8 +18,8 @@ class PetApplicationsController < ApplicationController
       flash[:submit_app_success] = "Your application was submitted successfully!"
       redirect_to "/favorites"
     else
+      flash[:submit_app_fail] = "You must fill out all all of the application before it can be submitted."
       redirect_back(fallback_location: root_path)
-      flash[:submit_app_fail] = "Application must include a name, address, and content to be submitted."
     end
   end
 

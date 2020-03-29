@@ -1,10 +1,23 @@
 <h1>Your Favorite Pets</h1>
-<h3><%= link_to "Adopt Favorite Pets", "/pet_applications/new" %></h3
+<h3><%= link_to "Adopt Favorite Pets", "/pet_applications/new" %></h3>
 <section>
+  <% if favorite.total_count > 0 %>
     <% @favorited.each do |pet| %>
-    <div class="pet_block">
-      <%= image_tag(pet.image) %><br/>
-      <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
-    </div>
+      <div id="favorite-<%= pet.id %>" class="pet_block">
+        <%= image_tag(pet.image) %><br/>
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
+        <%= link_to "Remove Favorite", "/favorites/#{pet.id}", method: :patch %>
+      </div>
     <% end %>
+  <% else %>
+    <h3>You Have No Favorite Pets</h3>
+  <% end %>
 </section>
+
+<div id="unfavorite-link">
+      <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
+</div>
+
+<% flash.each do |name, msg| %>
+    <div class="submit_app_success"><%= msg %></div>
+  <% end %>

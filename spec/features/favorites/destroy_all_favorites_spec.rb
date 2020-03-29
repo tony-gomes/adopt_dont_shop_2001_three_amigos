@@ -28,7 +28,7 @@ RSpec.describe 'as a visitor with multiple favorites' do
   end
 
   describe 'when I visit favorites index I see a link to remove all favorited pets' do
-    describe 'when I click that link I am redirected back to /favorites' do
+    context 'when I click that link I am redirected back to /favorites' do
       it 'have no favorited pets is displayed & favorites indicator resets' do
 
         visit '/'

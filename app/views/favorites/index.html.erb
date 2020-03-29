@@ -17,7 +17,3 @@
 <div id="unfavorite-link">
       <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
 </div>
-
-<% flash.each do |name, msg| %>
-    <div class="submit_app_success"><%= msg %></div>
-  <% end %>

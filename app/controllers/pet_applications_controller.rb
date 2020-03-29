@@ -15,11 +15,11 @@ class PetApplicationsController < ApplicationController
         pet.update(adopt_status: "Pending")
         favorite.contents.delete(pet_id.to_i)
       end
-      flash[:submit_app_success] = "Your application was submitted successfully!"
+      flash[:success] = "Your application was submitted successfully!"
       redirect_to "/favorites"
     else
+      flash[:error] = "You must fill out all all of the application before it can be submitted."
       redirect_back(fallback_location: root_path)
-      flash[:submit_app_fail] = "Application must include a name, address, and content to be submitted."
     end
   end
 

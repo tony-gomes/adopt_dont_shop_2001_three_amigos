@@ -16,6 +16,11 @@
       <li><%= link_to "Shelters Index", "/" %></li>
       <li><%= link_to "Pets Index", "/pets" %></li>
       <li><%= link_to "Favorite Pets: #{favorite.total_count}", "/favorites" %></li>
+      <div id="info-messages">
+        <% flash.each do |name, msg| %>
+        <div id="<%= name %>"><%= msg %></div>
+        <% end %>
+      </div>
     </nav>
     <%= yield %>
   </body>

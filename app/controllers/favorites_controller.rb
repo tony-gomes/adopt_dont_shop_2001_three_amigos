@@ -10,7 +10,7 @@ class FavoritesController < ApplicationController
     pet = Pet.find(params[:pet_id])
     favorite.add_pet(pet.id)
     session[:favorite] = @favorite.contents
-    flash[:pet_fav] = "Pet added to favorites."
+    flash[:success] = "Pet added to favorites."
     redirect_to "/pets/#{pet.id}"
   end
 
@@ -21,7 +21,7 @@ class FavoritesController < ApplicationController
     pet = Pet.find(params[:pet_id])
     favorite.remove_pet(pet.id)
     session[:favorite] = @favorite.contents
-    flash[:pet_fav_removed] = "Pet removed from favorites."
+    flash[:notice] = "Pet removed from favorites."
     redirect_back(fallback_location: root_path)
   end
 

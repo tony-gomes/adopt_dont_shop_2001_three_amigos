@@ -118,26 +118,42 @@ label + input {
   width: 200px;
 }
 
-.error_message {
+#error {
   background-color: maroon;
   color: whitesmoke;
-  padding: 20px;
+  padding: 10px;
   display: inline-block;
   float: left;
-  width: 50%;
+  width: 80%;
   margin-bottom: 20px;
   border-radius: 5px;
   text-align: left;
 }
 
-.well_done {
+#success {
   background-color: green;
   color: whitesmoke;
-  padding: 20px;
+  padding: 10px;
   display: inline-block;
   float: left;
-  width: 50%;
-  margin-bottom: 20px;
+  width: 80%;
   border-radius: 5px;
   text-align: left;
+}
+
+#notice {
+  background-color: navy;
+  color: whitesmoke;
+  padding: 10px;
+  display: inline-block;
+  float: left;
+  width: 80%;
+  border-radius: 5px;
+  text-align: left;
+}
+
+#info-messages {
+  width: 100%;
+  float: left;
+  padding-top: 15px;
 }

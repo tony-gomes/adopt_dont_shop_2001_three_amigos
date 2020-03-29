@@ -15,8 +15,4 @@
   Sex: <%= @pet.sex %><br/>
   <p><%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
-  <% flash.each do |name, msg| %>
-  <div class="well_done"><%= msg %></div>
-  <div class="favorite_removed"><%= msg %></div>
-  <% end %>
 </section>

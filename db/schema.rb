@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20200328205352) do
     t.string "zip"
     t.string "phone_number"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pets", force: :cascade do |t|

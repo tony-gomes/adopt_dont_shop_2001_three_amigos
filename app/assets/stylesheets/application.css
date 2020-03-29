@@ -129,3 +129,15 @@ label + input {
   border-radius: 5px;
   text-align: left;
 }
+
+.well_done {
+  background-color: green;
+  color: whitesmoke;
+  padding: 20px;
+  display: inline-block;
+  float: left;
+  width: 50%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: left;
+}

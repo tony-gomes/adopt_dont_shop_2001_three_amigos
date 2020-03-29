@@ -22,52 +22,39 @@ RSpec.describe "As a visitor that has favorited a pet" do
   end
 
   describe "when I visit that pet's show I no longer see a link to favorite that pet" do
-    it "But I see a link to remove that pet from my favorites" do
+    describe "But I see a link to remove that pet from my favorites" do
+      describe "when I click remove pet a delete request is sent to /favorites/:pet_id" do
+        describe "I am redirected back to that pets show page where I see removed flash message" do
+          it "And I see a link to favorite the pet & favorites indicator decremented by 1" do
 
+            visit "/pets/#{@pet_1.id}"
 
-      visit "/pets/#{@pet_1.id}"
+            within "section" do
+              click_link "Favorite Pet"
+            end
 
-      within "section" do
-        click_link "Favorite Pet"
-      end
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 1")
+            end
 
-      within 'nav' do
-        expect(page).to have_content("Favorite Pets: 1")
-      end
-
-      within "section" do
-        expect(page).to have_link("Remove Favorite")
-      end
-
-      expect(current_path).to eq("/pets/#{@pet_1.id}")
-
-    end
-  end
-
-  describe "when I click remove pet a delete request is sent to /favorites/:pet_id" do
-    describe "I am redirected back to that pets show page where I see removed flash message" do
-      it "And I see a link to favorite the pet & favorites indicator decremented by 1" do
-
-        expect(current_path).to eq("/pets/#{@pet_1.id}")
-
-          within "section" do
+            expect(page).to have_link("Remove Favorite")
             click_link "Remove Favorite"
+
+            expect(current_path).to eq("/pets/#{@pet_1.id}")
+            expect(page).to have_content("Pet removed from favorites.")
+
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 0")
+            end
+
+            within "section" do
+              click_link "Favorite Pet"
+            end
+
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 1")
+            end
           end
-
-          expect(current_path).to eq("/pets/#{@pet_1.id}")
-          expect(page).to have_content("Pet removed from favorites.")
-
-
-        within 'nav' do
-          expect(page).to have_content("Favorite Pets: 0")
-        end
-
-        within "section" do
-          click_link "Favorite Pet"
-        end
-
-        within 'nav' do
-          expect(page).to have_content("Favorite Pets: 1")
         end
       end
     end

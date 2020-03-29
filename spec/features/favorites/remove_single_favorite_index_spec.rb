@@ -28,52 +28,60 @@ RSpec.describe "As a visitor", type: :feature do
   end
 
   describe "When I have added pets to my favorites list & I visit /favorites" do
-    describe "I see a link to remove that pet from my favorites next to each pet" do
-      it "If I click on remove link a delete request is sent to /favorites/:pet_id" do
-        visit "/pets/#{@pet_1.id}"
+    context "I see a link to remove that pet from my favorites next to each pet" do
+      context "If I click on remove link a delete request is sent to /favorites/:pet_id" do
+        context "I am redirected back to favorites where I no longer see that pet" do
+          it "I also see that the favorites indicator has decremented by 1" do
 
-        expect(current_path).to eq("/pets/#{@pet_1.id}")
+            visit "/pets/#{@pet_1.id}"
 
-        within 'section' do
-          click_link "Favorite Pet"
-        end
+            expect(current_path).to eq("/pets/#{@pet_1.id}")
 
-        expect(page).to have_content("Pet added to favorites")
+            within 'section' do
+              click_link "Favorite Pet"
+            end
 
-        visit "/pets/#{@pet_2.id}"
+            expect(page).to have_content("Pet added to favorites")
 
-        expect(current_path).to eq("/pets/#{@pet_2.id}")
+            visit "/pets/#{@pet_2.id}"
 
-        within 'section' do
-          click_link "Favorite Pet"
-        end
+            expect(current_path).to eq("/pets/#{@pet_2.id}")
 
-        expect(page).to have_content("Pet added to favorites")
+            within 'section' do
+              click_link "Favorite Pet"
+            end
 
-        within 'nav' do
-          click_link "Favorite Pet"
-        end
+            expect(page).to have_content("Pet added to favorites")
 
-        expect(current_path).to eq("/favorite")
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 2")
+              click_link "Favorite Pet"
+            end
 
-        within 'section' do
-          expect(page.all('pet_block')[0]).to have_link("Remove Favorite")
-          expect(page.all('pet_block')[1]).to have_link("Remove Favorite")
-        end
+            expect(current_path).to eq("/favorites")
 
-        within 'pet-block' do
-          click_link "Remove Favorite"
-        end
+            within "#favorite-#{@pet_1.id}" do
+              click_link "Remove Favorite"
+            end
 
-      end
-    end
+            expect(current_path).to eq("/favorites")
 
-    describe "I am redirected back to favorites where I no longer see that pet" do
-      it "I also see that the favorites indicator has decremented by 1" do
-        expect(current_path).to eq("/favorite")
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 1")
+            end
 
-        within "nav" do
-          expect(page).to have_content("Favorite Pets: 0")
+            expect(current_path).to eq("/favorites")
+
+            within "#favorite-#{@pet_2.id}" do
+              click_link "Remove Favorite"
+            end
+
+            expect(current_path).to eq("/favorites")
+
+            within 'nav' do
+              expect(page).to have_content("Favorite Pets: 0")
+            end
+          end
         end
       end
     end

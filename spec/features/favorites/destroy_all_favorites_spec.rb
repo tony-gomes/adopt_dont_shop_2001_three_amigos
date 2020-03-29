@@ -34,7 +34,6 @@ RSpec.describe 'as a visitor with multiple favorites' do
         visit '/'
 
         within 'nav' do
-          # click_link "/favorites"
           click_link "Favorite Pet"
         end
 

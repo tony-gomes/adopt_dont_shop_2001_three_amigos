@@ -28,9 +28,9 @@ RSpec.describe "As a visitor", type: :feature do
   end
 
   describe "When I have added pets to my favorites list & I visit /favorites" do
-    describe "I see a link to remove that pet from my favorites next to each pet" do
-      describe "If I click on remove link a delete request is sent to /favorites/:pet_id" do
-        describe "I am redirected back to favorites where I no longer see that pet" do
+    context "I see a link to remove that pet from my favorites next to each pet" do
+      context "If I click on remove link a delete request is sent to /favorites/:pet_id" do
+        context "I am redirected back to favorites where I no longer see that pet" do
           it "I also see that the favorites indicator has decremented by 1" do
 
             visit "/pets/#{@pet_1.id}"

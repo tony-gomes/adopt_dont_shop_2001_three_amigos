@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "When I have added pets to my favorites list and and I visit my favorites index" do
+RSpec.describe "When I have added pets to my favorites list and and I visit my favorites index", type: :feature do
   describe "I click the link to adopt my favorited pets and am taken to an application form" do
     describe "I can see the pets I want to adopt at the top of the form " do
       it "and when I fill out all the fields of the form I see a message saying my application was submitted" do

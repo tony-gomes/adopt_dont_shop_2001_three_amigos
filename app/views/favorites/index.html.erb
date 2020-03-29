@@ -2,7 +2,7 @@
 <section>
   <% if favorite.total_count > 0 %>
     <% @favorited.each do |pet| %>
-      <div id="favorite-<%= pet.id %>" class="pet_block" style="display: flex">
+      <div id="favorite-<%= pet.id %>" class="pet_block">
         <%= image_tag(pet.image) %><br/>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
         <%= link_to "Remove Favorite", "/favorites/#{pet.id}", method: :patch %>

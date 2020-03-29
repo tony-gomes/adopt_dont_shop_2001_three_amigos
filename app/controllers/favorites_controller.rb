@@ -14,6 +14,9 @@ class FavoritesController < ApplicationController
     redirect_to "/pets/#{pet.id}"
   end
 
+  def new
+  end
+
   def update
     pet = Pet.find(params[:pet_id])
     favorite.remove_pet(pet.id)
@@ -26,4 +29,5 @@ class FavoritesController < ApplicationController
     favorite.remove_all_pets
     redirect_back(fallback_location: root_path)
   end
+
 end

@@ -31,15 +31,15 @@ RSpec.describe "As a visitor", type: :feature do
       it "I see text saying that I have no favorited pets" do
         visit '/favorites'
 
-        within 'section' do
-          click_link "Unfavorite All Pets"
-        end
+        click_link "Unfavorite All Pets"
 
         within 'nav' do
           expect(page).to have_content("Favorite Pets: 0")
         end
 
-        expect(page).to have_content("You Have No Favorite Pets")
+        within 'section' do
+          expect(page).to have_content("You Have No Favorite Pets")
+        end
       end
     end
   end

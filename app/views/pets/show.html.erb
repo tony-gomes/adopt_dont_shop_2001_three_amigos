@@ -3,8 +3,8 @@
   <h2><%= @pet.name %></h2>
   Status: <%= @pet.adopt_status %><br/>
 
-  <% if favorite.check_pet("#{@pet.id}") %>
-    <%= link_to "Remove Favorite", "/favorites/#{@pet.id}", method: :delete %>
+  <% if favorite.check_pet(@pet.id) %>
+    <%= link_to "Remove Favorite", "/favorites/#{@pet.id}", method: :patch %>
   <% else %>
     <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :post %>
   <% end %>

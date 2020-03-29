@@ -26,5 +26,8 @@ class Favorite
   def remove_pet(pet_id)
    @contents.delete(pet_id) if @contents.include?(pet_id)
   end
-  
+
+  def remove_all_pets
+    @contents.clear
+  end
 end

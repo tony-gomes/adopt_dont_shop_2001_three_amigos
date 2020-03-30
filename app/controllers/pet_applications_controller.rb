@@ -4,6 +4,10 @@ class PetApplicationsController < ApplicationController
     @favorite_pets = favorite.load_favorite_pets
   end
 
+  def show
+    @pet_application = PetApplication.find(params[:id])
+  end
+
   def create
     new_application = PetApplication.new(application_params)
     new_application.save

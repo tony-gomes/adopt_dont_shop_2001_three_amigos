@@ -34,20 +34,45 @@ RSpec.describe "After a pet has one or more applications on it and I visit /favo
         image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg"
       )
 
-      app_1 = PetApplication.create!(
-        name: "Jesse",
-        address: "12345 Jesse Ave",
-        city: "Jesse",
-        state: "CO",
-        zip: "80120",
-        phone_number: "303-867-5309",
-        description: "Because I'm too cool for school"
-      )
+      visit "/pets/#{pet_1.id}"
 
-      ApplicationPet.create(pet_id: "#{pet_1.id}", pet_application_id: "#{app_1.id}")
-      ApplicationPet.create(pet_id: "#{pet_2.id}", pet_application_id: "#{app_1.id}")
+      within "section" do
+        click_link "Favorite Pet"
+      end
 
-      require "pry"; binding.pry
+      visit("/favorites")
+
+      within ".pending-pets" do
+        expect(page).to_not have_content("#{pet_1.name}")
+      end
+
+      click_link "Adopt Favorite Pets"
+
+      within("#pet-#{pet_1.id}") do
+        check "#{pet_1.name}"
+      end
+
+      fill_in :name, with: "Jesse"
+      fill_in :address, with: "12345 Jesse Ave"
+      fill_in :city, with: "Jesse"
+      fill_in :state, with: "CO"
+      fill_in :zip, with: "80120"
+      fill_in :phone_number, with: "303-867-5309"
+      fill_in :description, with: "Because I'm too cool for school"
+
+      click_button "Submit Application"
+
+      within ".pending-pets" do
+        expect(page).to have_link("#{pet_1.name}")
+      end
+
+      within ".pending-pets" do
+        click_link "#{pet_1.name}"
+      end
+
+      expect(current_path).to eq("/pets/#{pet_1.id}")
+
+
     end
   end
 end

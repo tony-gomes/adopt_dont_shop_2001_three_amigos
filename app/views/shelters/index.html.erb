@@ -3,9 +3,15 @@
 <section>
     <% @shelters.each do |shelter| %>
     <div class="shelter_block">
-      <div class="shelter_name"><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %></div>
-      <li><%= link_to "Edit Shelter", "/shelters/#{shelter.id}/edit"%></li>
-      <li><%= link_to "Delete Shelter", "/shelters/#{shelter.id}", method: :delete %></li>
+      <div id="shelter-<%= shelter.id %>">
+        <div class="shelter_name"><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %></div>
+        <li><%= link_to "Edit Shelter", "/shelters/#{shelter.id}/edit"%></li>
+        <% if shelter.pets.find_all do |pet| %>
+          <% pet.adopt_status == "Pending" %>
+        <% end.length.zero? %>
+        <li><%= link_to "Delete Shelter", "/shelters/#{shelter.id}", method: :delete %></li>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </section>

@@ -80,9 +80,12 @@ RSpec.describe "When I have added pets to my favorites list and and I visit my f
         expect(current_path).to eq("/favorites")
         expect(page).to have_content("Your application was submitted successfully!")
 
-        expect(page).to_not have_content("#{pet_1.name}")
-        expect(page).to_not have_content("#{pet_2.name}")
-        expect(page).to have_content("#{pet_3.name}")
+        within ".favorited-pets" do
+          expect(page).to_not have_content("#{pet_1.name}")
+          expect(page).to_not have_content("#{pet_2.name}")
+          expect(page).to have_content("#{pet_3.name}")
+        end
+        
       end
     end
   end

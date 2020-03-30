@@ -4,6 +4,7 @@ class FavoritesController < ApplicationController
     @favorited = favorite.contents.map do |id|
       Pet.find(id)
     end
+    @pending_pets = Pet.where(adopt_status: "Pending")
   end
 
   def create

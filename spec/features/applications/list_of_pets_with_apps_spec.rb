@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "When I fill out an incomplete application for a pet", type: :feature do
-  describe "and I click on the submit application button" do
-    it "I am redirected back to new applicaton form and see an error message that I must complete the form" do
+RSpec.describe "After a pet has one or more applications on it and I visit /favorites", type: :feature do
+  describe "there will be a section with all the pets that have open apps on them" do
+    it "each pet's name is a link to that pets show page" do
 
       shelter_1 = Shelter.create(
         name: "Dog-Haven",
@@ -40,33 +40,13 @@ RSpec.describe "When I fill out an incomplete application for a pet", type: :fea
         click_link "Favorite Pet"
       end
 
-      visit "/pets/#{pet_2.id}"
-
-      within "section" do
-        click_link "Favorite Pet"
-      end
-
       visit("/favorites")
 
-      click_link "Adopt Favorite Pets"
-
-      expect(current_path).to eq("/pet_applications/new")
-
-      within("#pet-#{pet_1.id}") do
-        check "#{pet_1.name}"
+      within ".pending-pets" do
+        expect(page).to_not have_content("#{pet_1.name}")
       end
 
-      fill_in :name, with: "Jesse"
-      fill_in :address, with: "12345 Jesse Ave"
-      fill_in :city, with: "Jesse"
-      fill_in :state, with: "CO"
-      fill_in :zip, with: "80120"
-      fill_in :description, with: "Because I'm too cool for school"
-
-      click_button "Submit Application"
-
-      expect(current_path).to eq("/pet_applications/new")
-      expect(page).to have_content("You must fill out all all of the application before it can be submitted.")
+      click_link "Adopt Favorite Pets"
 
       within("#pet-#{pet_1.id}") do
         check "#{pet_1.name}"
@@ -82,14 +62,15 @@ RSpec.describe "When I fill out an incomplete application for a pet", type: :fea
 
       click_button "Submit Application"
 
-      expect(current_path).to eq("/favorites")
-      expect(page).to have_content("Your application was submitted successfully!")
-
-
-      within ".favorited-pets" do
-        expect(page).to_not have_content("#{pet_1.name}")
-        expect(page).to have_content("#{pet_2.name}")
+      within ".pending-pets" do
+        expect(page).to have_link("#{pet_1.name}")
       end
+
+      within ".pending-pets" do
+        click_link "#{pet_1.name}"
+      end
+
+      expect(current_path).to eq("/pets/#{pet_1.id}")
 
 
     end

@@ -4,7 +4,7 @@
 
   <% if favorite.total_count > 0 %>
     <% @favorited.each do |pet| %>
-      <% if pet.adopt_status == "Adoptable" %>
+      <% if pet.adopt_status == "Adoptable" && pet.adopt_status == "Application Pending" %>
         <div id="favorite-<%= pet.id %>" class="pet_block">
           <%= image_tag(pet.image) %><br/>
           <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %><br/>
@@ -21,9 +21,9 @@
       <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
 </div>
 
-<ul class="pending-pets">The Following Pets have pending applications:
+<ul class="application-submitted-pets">The following pets have applications submitted:
   <% @favorited.each do |pet| %>
-    <% if pet.adopt_status == "Pending" %>
+    <% if pet.adopt_status == "Application Submitted" %>
       <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     <% end %>
   <% end %>

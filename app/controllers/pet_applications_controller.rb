@@ -15,6 +15,8 @@ class PetApplicationsController < ApplicationController
     if new_application.save
       pets.each do |pet_id|
         ApplicationPet.create(pet_id: pet_id, pet_application_id: new_application.id)
+        pet = Pet.find(pet_id)
+        pet.update(adopt_status: "Application Submitted")
       end
       flash[:success] = "Your application was submitted successfully!"
       redirect_to "/favorites"

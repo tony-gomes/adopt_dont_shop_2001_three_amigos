@@ -98,9 +98,24 @@ RSpec.describe 'As a visitor' do
           check "#{@pet_2.name}"
         end
 
+        click_button "Approve Application"
 
-        # expect(page).to have_content("Status: Pending")
+        expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
+        expect(page).to have_content("Your applications have been approved!")
+
+        visit "/pets/#{@pet_1.id}"
+
+        within "section" do
+          expect(page).to have_content("Status: Pending")
         # expect(page).to have_content("On Hold For #{application.name}")
+        end
+
+        visit "/pets/#{@pet_2.id}"
+
+        within "section" do
+          expect(page).to have_content("Status: Pending")
+        # expect(page).to have_content("On Hold For #{application.name}")
+        end
       end
     end
   end

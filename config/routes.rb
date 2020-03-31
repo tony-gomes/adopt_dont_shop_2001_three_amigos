@@ -27,7 +27,8 @@ Rails.application.routes.draw do
 
   get '/pet_applications/new', to: 'pet_applications#new'
   post '/pet_applications', to: 'pet_applications#create'
-  get '/pet_applications/:id', to: 'pet_applications#show'
+  get '/pet_applications/:application_id', to: 'pet_applications#show'
+  patch '/pet_applications/:application_id/approve_application', to: 'pet_applications#update'
 
   get '/favorites', to: 'favorites#index'
   post '/favorites/:pet_id', to: 'favorites#create'

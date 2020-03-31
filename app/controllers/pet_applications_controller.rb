@@ -12,7 +12,7 @@ class PetApplicationsController < ApplicationController
     new_application = PetApplication.new(application_params)
     new_application.save
     pets = params[:pet_id]
-    if new_application.save
+    if pets != nil && new_application.save
       pets.each do |pet_id|
         ApplicationPet.create(pet_id: pet_id, pet_application_id: new_application.id)
         pet = Pet.find(pet_id.to_i)

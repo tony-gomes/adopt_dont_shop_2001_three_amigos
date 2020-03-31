@@ -15,6 +15,7 @@
   Sex: <%= @pet.sex %><br/>
   <p><%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
+  <p>View <%= link_to "All Applications", "/pets/#{@pet.id}/applications", method: :get %> for <%= @pet.name %>
 </section>
 
 <div class="application-hold-message">

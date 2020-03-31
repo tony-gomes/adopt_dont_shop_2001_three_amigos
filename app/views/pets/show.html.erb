@@ -17,3 +17,9 @@
   <%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %></p>
   <p>View <%= link_to "All Applications", "/pets/#{@pet.id}/applications", method: :get %> for <%= @pet.name %>
 </section>
+
+<div class="application-hold-message">
+  <% if @pet.adopt_status == "Pending" %>
+    <h3 style="background-color: orange; color: white;">On hold for: <%= @pet.pet_applications.first.name %></h3>
+  <% end %>
+</div>

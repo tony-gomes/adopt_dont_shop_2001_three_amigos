@@ -67,10 +67,12 @@ RSpec.describe "when I visit a shelter's show page", type: :feature do
 
       expect(page).to have_content("Pets at this location: 2")
       expect(page).to have_content("Average rating: 2.3")
+      expect(page).to have_content("Total applications on file : 3")
 
       visit("/shelters/#{shelter_2.id}")
 
       expect(page).to have_content("Pets at this location: 1")
       expect(page).to have_content("Average rating: 5")
+      expect(page).to have_content("Total applications on file : 0")
   end
 end

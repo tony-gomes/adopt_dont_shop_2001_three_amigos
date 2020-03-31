@@ -76,6 +76,7 @@ RSpec.describe "when i visit an application show page i can see pets applied for
     click_button "Submit Application"
 
     visit "/pet_applications/#{PetApplication.last.id}"
+    expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
 
     expect(page).to have_content("12345 Jesse Ave")
     expect(page).to have_content("Jesse, CO 80120")
@@ -83,12 +84,11 @@ RSpec.describe "when i visit an application show page i can see pets applied for
     expect(page).to have_content("Because I'm too cool for school")
 
     within "#app-#{PetApplication.last.id}-pet-#{pet_1.id}" do
-      expect(page).to have_link("#{pet_1.name}", href:"/pets/#{pet_1.id}")
+      expect(page).to have_link("Approve #{pet_1.name}'s Application")
     end
 
     within "#app-#{PetApplication.last.id}-pet-#{pet_2.id}" do
-      expect(page).to have_link("#{pet_2.name}", href:"/pets/#{pet_2.id}")
+      expect(page).to have_link("Approve #{pet_2.name}'s Application")
     end
-
   end
 end

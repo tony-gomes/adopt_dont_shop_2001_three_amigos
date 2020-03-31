@@ -2,10 +2,10 @@
 <section>
   <%= form_tag "/pet_applications/", method: :post do %>
     <% @favorite_pets.each do |pet| %>
-    <div id="pet-<%= pet.id %>">
-      <%= check_box_tag("pet_id[]", "#{pet.id}") %>
-      <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
-    </div>
+        <div id="pet-<%= pet.id %>">
+          <%= check_box_tag("pet_id[]", "#{pet.id}") %>
+          <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
+        </div>
     <% end %>
     <%= label_tag "Name: "%>
     <%= text_field_tag :name %><br/>

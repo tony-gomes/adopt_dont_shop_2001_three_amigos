@@ -40,6 +40,12 @@ RSpec.describe 'As a visitor' do
         click_link "Favorite Pet"
       end
 
+      visit "/pets/#{@pet_3.id}"
+
+      within "section" do
+        click_link "Favorite Pet"
+      end
+
       visit("/favorites")
 
       click_link "Adopt Favorite Pets"
@@ -48,6 +54,10 @@ RSpec.describe 'As a visitor' do
 
       within("#pet-#{@pet_2.id}") do
         check "#{@pet_2.name}"
+      end
+
+      within("#pet-#{@pet_3.id}") do
+        check "#{@pet_3.name}"
       end
 
       fill_in :name, with: "Jesse"
@@ -86,53 +96,11 @@ RSpec.describe 'As a visitor' do
         expect(page).to have_content("Status: Pending")
       end
 
-      reset_session!
-      visit("/")
-
-      within 'nav' do
-        expect(page).to have_content("Favorite Pets: 0")
-      end
-
-      visit "/pets/#{@pet_2.id}"
-
-      within "section" do
-        click_link "Favorite Pet"
-      end
-
       visit "/pets/#{@pet_3.id}"
 
       within "section" do
-        click_link "Favorite Pet"
+        expect(page).to have_content("Status: Application Submitted")
       end
-
-      visit("/favorites")
-
-      click_link "Adopt Favorite Pets"
-
-      expect(current_path).to eq("/pet_applications/new")
-
-
-
-      within("#pet-#{@pet_2.id}") do
-        check "#{@pet_2.name}"
-      end
-
-      within("#pet-#{@pet_3.id}") do
-        check "#{@pet_3.name}"
-      end
-
-      fill_in :name, with: "Jesse"
-      fill_in :address, with: "12345 Jesse Ave"
-      fill_in :city, with: "Jesse"
-      fill_in :state, with: "CO"
-      fill_in :zip, with: "80120"
-      fill_in :phone_number, with: "303-867-5309"
-      fill_in :description, with: "Because I'm too cool for school"
-
-      click_button "Submit Application"
-
-      expect(current_path).to eq("/favorites")
-      expect(page).to have_content("Your application was submitted successfully!")
 
       visit "/pet_applications/#{PetApplication.last.id}"
       expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
@@ -142,9 +110,8 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("303-867-5309")
       expect(page).to have_content("Because I'm too cool for school")
 
-      within"#app-#{PetApplication.last.id}-pet-#{@pet_2.id}" do
-        expect(page).to have_no_content("#{@pet_2.name}")
-      end
+      expect(page).to have_no_content("#app-#{PetApplication.last.id}-pet-#{@pet_2.id}")
+      expect(page).to have_no_content("#{@pet_2.name}")
 
       within "#app-#{PetApplication.last.id}-pet-#{@pet_3.id}" do
         check "#{@pet_3.name}"

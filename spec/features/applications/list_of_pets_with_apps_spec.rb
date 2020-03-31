@@ -42,7 +42,7 @@ RSpec.describe "After a pet has one or more applications on it and I visit /favo
 
       visit("/favorites")
 
-      within ".pending-pets" do
+      within ".application-submitted-pets" do
         expect(page).to_not have_content("#{pet_1.name}")
       end
 
@@ -62,11 +62,11 @@ RSpec.describe "After a pet has one or more applications on it and I visit /favo
 
       click_button "Submit Application"
 
-      within ".pending-pets" do
+      within ".application-submitted-pets" do
         expect(page).to have_link("#{pet_1.name}")
       end
 
-      within ".pending-pets" do
+      within ".application-submitted-pets" do
         click_link "#{pet_1.name}"
       end
 

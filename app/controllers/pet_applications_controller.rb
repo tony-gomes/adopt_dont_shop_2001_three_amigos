@@ -37,6 +37,15 @@ class PetApplicationsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def destroy
+    revoked_pet = Pet.find(params[:pet_id])
+
+    revoked_pet.update(adopt_status: "Adoptable")
+
+    flash[:approve_application] = "#{Pet.find(params[:pet_id]).name}'s application is revoked!"
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def application_params

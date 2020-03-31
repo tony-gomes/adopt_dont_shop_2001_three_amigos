@@ -18,8 +18,10 @@
       <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
 </div>
 
-  <ul class="pending-pets">The Following Pets have pending applications:
-    <% @pending_pets.each do |pet| %>
+<ul class="application-submitted-pets">The following pets have applications submitted:
+  <% @favorited.each do |pet| %>
+    <% if pet.adopt_status == "Application Submitted" %>
       <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
     <% end %>
-  </ul>
+  <% end %>
+</ul>

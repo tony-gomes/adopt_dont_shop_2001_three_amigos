@@ -27,9 +27,13 @@ class PetApplicationsController < ApplicationController
   end
 
   def update
-    pet = Pet.find(params[:pet_id])
-    pet.update(adopt_status: "Pending")
-    flash[:approve_application] = "The application has been approved!"
+    approved_pets = Pet.find(params[:pet_id])
+
+    approved_pets.each do |pet|
+      pet.update(adopt_status: "Pending")
+    end
+
+    flash[:approve_application] = "The application(s) are approved!"
     redirect_back(fallback_location: root_path)
   end
 

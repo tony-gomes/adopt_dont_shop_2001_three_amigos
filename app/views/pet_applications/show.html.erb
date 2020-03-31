@@ -9,10 +9,16 @@
   <p>Applicant Notes:
   <p><%= @pet_application.description %>
 
-<h3>Pet Applications</h3>
-  <% @pet_application.pets.each do |pet| %>
-    <div id="app-<%= @pet_application.id %>-pet-<%= pet.id %>">
-        <%= link_to "Approve #{pet.name}'s Application", "/pet_applications/#{@pet_application.id}/approve/#{pet.id}", method: :patch %>
-    </div>
+<div><h3>Pet Applications</h3>
+  <%= form_tag "/pet_applications/#{@pet_application.id}/approve_application", method: :patch do %>
+    <% @pet_application.pets.each do |pet| %>
+      <div id="app-<%= @pet_application.id %>-pet-<%= pet.id %>">
+        <%= check_box_tag("pet_id[]", "#{pet.id}") %>
+        <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
+      </div>
+    <% end %>
+
+    <%= submit_tag "Approve Applications" %>
   <% end %>
+</div>
 </section>

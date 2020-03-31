@@ -5,7 +5,7 @@ class PetApplicationsController < ApplicationController
   end
 
   def show
-    @pet_application = PetApplication.find(params[:id])
+    @pet_application = PetApplication.find(params[:application_id])
   end
 
   def create
@@ -15,9 +15,6 @@ class PetApplicationsController < ApplicationController
     if new_application.save
       pets.each do |pet_id|
         ApplicationPet.create(pet_id: pet_id, pet_application_id: new_application.id)
-        pet = Pet.find(pet_id)
-        pet.update(adopt_status: "Pending")
-        favorite.contents.delete(pet_id.to_i)
       end
       flash[:success] = "Your application was submitted successfully!"
       redirect_to "/favorites"
@@ -27,11 +24,21 @@ class PetApplicationsController < ApplicationController
     end
   end
 
+  def update
+    pet = Pet.find(params[:pet_id])
+
+    pet.each do |pet_id|
+      pet_id.update(adopt_status: "Pending")
+    end
+
+    flash[:approve_application] = "Your applications have been approved!"
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def application_params
     params.permit(:pet_id, :name, :address, :city,
       :state, :zip, :phone_number, :description)
   end
-
 end

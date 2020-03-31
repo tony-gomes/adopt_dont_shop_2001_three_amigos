@@ -33,7 +33,7 @@ class PetApplicationsController < ApplicationController
       pet.update(adopt_status: "Pending")
     end
 
-    flash[:approve_application] = "The application(s) are approved!"
+    flash[:success] = "The application(s) are approved!"
     redirect_back(fallback_location: root_path)
   end
 
@@ -42,7 +42,7 @@ class PetApplicationsController < ApplicationController
 
     revoked_pet.update(adopt_status: "Adoptable")
 
-    flash[:approve_application] = "#{Pet.find(params[:pet_id]).name}'s application is revoked!"
+    flash[:success] = "#{Pet.find(params[:pet_id]).name}'s application is revoked!"
     redirect_back(fallback_location: root_path)
   end
 

@@ -9,29 +9,28 @@
   <p>Applicant Notes:
   <p><%= @pet_application.description %>
 
-<div><h3>Submitted Pet Applications</h3>
-  <%= form_tag "/pet_applications/#{@pet_application.id}/approve_application", method: :patch do %>
-    <% @pet_application.pets.each do |pet| %>
-      <% unless pet.adopt_status == "Pending" %>
-        <div id="sub-app-<%= @pet_application.id %>-pet-<%= pet.id %>">
-          <%= check_box_tag("pet_id[]", "#{pet.id}") %>
-          <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
-        </div>
+  <div class="submitted_pet_applications"><h3>Submitted Pet Applications</h3>
+    <%= form_tag "/pet_applications/#{@pet_application.id}/approve_application", method: :patch do %>
+      <% @pet_application.pets.each do |pet| %>
+        <% unless pet.adopt_status == "Pending" %>
+          <div id="sub-app-<%= @pet_application.id %>-pet-<%= pet.id %>">
+            <%= check_box_tag("pet_id[]", "#{pet.id}") %>
+            <%= label_tag("pet_id[]", "#{pet.name}") %><br/>
+          </div>
+        <% end %>
       <% end %>
+
+      <%= submit_tag "Approve Applications" %>
     <% end %>
+  </div>
 
-    <%= submit_tag "Approve Applications" %>
-  <% end %>
-</div>
-
-<div class="approved_pet_applications"><h3>Approved Pet Applications</h3>
-  <% @pet_application.pets.each do |pet| %>
-    <div id="open-app-<%= @pet_application.id %>-pet-<%= pet.id %>">
-      <% if pet.adopt_status == "Pending" %>
-          <%= link_to "Revoke #{pet.name}'s Application", "/pet_applications/#{@pet_application.id}/revoke_application/#{pet.id}", method: :delete %>
-      <% end %>
-    </div>
-  <% end %>
-
-</div>
+  <div class="approved_pet_applications"><h3>Approved Pet Applications</h3>
+    <% @pet_application.pets.each do |pet| %>
+      <div id="open-app-<%= @pet_application.id %>-pet-<%= pet.id %>">
+        <% if pet.adopt_status == "Pending" %>
+            <%= link_to "Revoke #{pet.name}'s Application", "/pet_applications/#{@pet_application.id}/revoke_application/#{pet.id}", method: :delete %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </section>

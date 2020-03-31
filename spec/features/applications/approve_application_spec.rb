@@ -25,10 +25,10 @@ RSpec.describe 'As a visitor' do
         )
 
         @pet_3 = shelter_1.pets.create!(name: "Huckleberry",
-                                       description: "I love adventure and haircuts!",
-                                       age: 8,
-                                       sex: "Male",
-                                       image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg")
+          description: "I love adventure and haircuts!",
+          age: 8,
+          sex: "Male",
+          image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg")
   end
 
   context 'When I visit an application#show page I see a link to approve the application for that each pet' do
@@ -89,32 +89,34 @@ RSpec.describe 'As a visitor' do
         expect(page).to have_content("Because I'm too cool for school")
 
         within("#app-#{PetApplication.last.id}-pet-#{@pet_1.id}") do
-          expect(page).to have_content("#{@pet_1.name}")
-          check "#{@pet_1.name}"
+          click_link "Approve #{@pet_1.name}'s Application"
         end
 
         within("#app-#{PetApplication.last.id}-pet-#{@pet_2.id}") do
-          expect(page).to have_content("#{@pet_2.name}")
-          check "#{@pet_2.name}"
+          click_link "Approve #{@pet_2.name}'s Application"
         end
 
-        click_button "Approve Application"
-
         expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
-        expect(page).to have_content("Your applications have been approved!")
+        expect(page).to have_content("The application has been approved!")
 
         visit "/pets/#{@pet_1.id}"
 
         within "section" do
           expect(page).to have_content("Status: Pending")
-        # expect(page).to have_content("On Hold For #{application.name}")
+        end
+
+        within ".application-hold-message" do
+          expect(page).to have_content("On hold for: #{PetApplication.last.name}")
         end
 
         visit "/pets/#{@pet_2.id}"
 
         within "section" do
           expect(page).to have_content("Status: Pending")
-        # expect(page).to have_content("On Hold For #{application.name}")
+        end
+
+        within ".application-hold-message" do
+          expect(page).to have_content("On hold for: #{PetApplication.last.name}")
         end
       end
     end

@@ -19,6 +19,6 @@
 
 <div class="application-hold-message">
   <% if @pet.adopt_status == "Pending" %>
-    <h3 style="background-color: orange; color: white;">On hold for: Need Applicant Name #{PetApplication.name}</h3>
+    <h3 style="background-color: orange; color: white;">On hold for: <%= @pet.pet_applications.first.name %></h3>
   <% end %>
 </div>

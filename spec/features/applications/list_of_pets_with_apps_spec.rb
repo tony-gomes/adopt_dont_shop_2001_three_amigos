@@ -71,8 +71,6 @@ RSpec.describe "After a pet has one or more applications on it and I visit /favo
       end
 
       expect(current_path).to eq("/pets/#{pet_1.id}")
-
-
     end
   end
 end

@@ -40,7 +40,7 @@ class SheltersController < ApplicationController
 
   def pending_pets
     @shelter.pets.find_all do |pet|
-      pet.adopt_status == "Pending"
+      pet.adopt_status != "Adoptable"
     end
   end
 

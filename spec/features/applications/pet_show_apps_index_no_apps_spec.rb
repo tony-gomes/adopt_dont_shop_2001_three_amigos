@@ -44,9 +44,3 @@ RSpec.describe "as a visitor, when i visit pet show applications page", type: :f
 
   end
 end
-
-# User Story 21, Pet Applications Index Page When No Applications
-#
-# As a visitor
-# When I visit a pet applications index page for a pet that has no applications on them
-# I see a message saying that there are no applications for this pet yet

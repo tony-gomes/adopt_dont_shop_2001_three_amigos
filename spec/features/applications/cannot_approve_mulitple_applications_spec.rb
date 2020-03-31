@@ -34,6 +34,12 @@ RSpec.describe 'As a visitor' do
   context 'When a pet has more than one application for them & one application has already been approved' do
     it 'I can not approve any other applications for that pet but all other applications still remain on file' do
 
+      visit "/pets/#{@pet_1.id}"
+
+      within "section" do
+        click_link "Favorite Pet"
+      end
+
       visit "/pets/#{@pet_2.id}"
 
       within "section" do
@@ -81,7 +87,7 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("303-867-5309")
       expect(page).to have_content("Because I'm too cool for school")
 
-      within "#app-#{PetApplication.last.id}-pet-#{@pet_2.id}" do
+      within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_2.id}" do
         check "#{@pet_2.name}"
       end
 
@@ -110,10 +116,11 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("303-867-5309")
       expect(page).to have_content("Because I'm too cool for school")
 
-      expect(page).to have_no_content("#app-#{PetApplication.last.id}-pet-#{@pet_2.id}")
-      expect(page).to have_no_content("#{@pet_2.name}")
+      within (".submitted_pet_applications") do
+        expect(page).to have_no_content("#{@pet_2.name}")
+      end
 
-      within "#app-#{PetApplication.last.id}-pet-#{@pet_3.id}" do
+      within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_3.id}" do
         check "#{@pet_3.name}"
       end
 

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post '/pet_applications', to: 'pet_applications#create'
   get '/pet_applications/:application_id', to: 'pet_applications#show'
   patch '/pet_applications/:application_id/approve_application', to: 'pet_applications#update'
+  delete '/pet_applications/:application_id/revoke_application/:pet_id', to: 'pet_applications#destroy'
 
   get '/favorites', to: 'favorites#index'
   post '/favorites/:pet_id', to: 'favorites#create'

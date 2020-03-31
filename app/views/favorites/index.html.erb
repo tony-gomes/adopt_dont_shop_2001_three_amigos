@@ -1,5 +1,6 @@
 <h1>Your Favorite Pets</h1>
-<section>
+<h3><%= link_to "Adopt Favorite Pets", "/pet_applications/new" %></h3>
+<section class="favorited-pets">
   <% if favorite.total_count > 0 %>
     <% @favorited.each do |pet| %>
       <div id="favorite-<%= pet.id %>" class="pet_block">
@@ -12,6 +13,15 @@
     <h3>You Have No Favorite Pets</h3>
   <% end %>
 </section>
+
 <div id="unfavorite-link">
       <%= link_to "Unfavorite All Pets", "/favorites", method: :delete %><br/>
 </div>
+
+<ul class="application-submitted-pets">The following pets have applications submitted:
+  <% @favorited.each do |pet| %>
+    <% if pet.adopt_status == "Application Submitted" %>
+      <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+    <% end %>
+  <% end %>
+</ul>

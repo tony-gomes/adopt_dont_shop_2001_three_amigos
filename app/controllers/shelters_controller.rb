@@ -6,6 +6,7 @@ class SheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find(params[:id])
+    @num_pending_pets = pending_pets.length
   end
 
   def new
@@ -37,5 +38,10 @@ class SheltersController < ApplicationController
     params.permit(:name, :address, :city, :state, :zip)
   end
 
+  def pending_pets
+    @shelter.pets.find_all do |pet|
+      pet.adopt_status != "Adoptable"
+    end
+  end
 
 end

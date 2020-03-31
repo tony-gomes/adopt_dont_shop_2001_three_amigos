@@ -13,6 +13,12 @@ class Favorite
     @contents.include?(pet_id)
   end
 
+  def load_favorite_pets
+    @contents.map do |id|
+      Pet.find(id)
+    end
+  end
+
   def add_pet(pet_id)
    @contents.push(pet_id) unless @contents.include?(pet_id)
   end

@@ -1,5 +1,9 @@
 class PetApplicationsController < ApplicationController
 
+  def index
+    @pet = Pet.find(params[:id])
+  end
+
   def new
     @favorite_pets = favorite.load_favorite_pets
   end
@@ -28,14 +32,19 @@ class PetApplicationsController < ApplicationController
   end
 
   def update
-    approved_pets = Pet.find(params[:pet_id])
+    if params.include?(:pet_id)
+      approved_pets = Pet.find(params[:pet_id])
 
-    approved_pets.each do |pet|
-      pet.update(adopt_status: "Pending")
+      approved_pets.each do |pet|
+        pet.update(adopt_status: "Pending")
+      end
+
+      flash[:success] = "The application(s) are approved!"
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:error] = "You must select at least one pet to approve."
+      redirect_back(fallback_location: root_path)
     end
-
-    flash[:success] = "The application(s) are approved!"
-    redirect_back(fallback_location: root_path)
   end
 
   def destroy

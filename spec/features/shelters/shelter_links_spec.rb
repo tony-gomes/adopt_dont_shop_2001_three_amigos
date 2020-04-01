@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "when i click on the name of a shleter", type: :feature do
+RSpec.describe "when i click on the name of a shelter", type: :feature do
   it "brings me to the shelters show page" do
     shelter_1 = Shelter.create(name: "Dog-Haven",
                                address:  "1234 Barkers Way",

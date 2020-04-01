@@ -38,14 +38,20 @@ RSpec.describe "if a shelter has no pets with approved apps", type: :feature do
 
     ApplicationPet.create(pet_id: pet_1.id, pet_application_id: application_1.id)
 
+    visit "/shelters/#{shelter_1.id}"
+    expect(page).to_not have_link("Delete Shelter")
+
+    visit "/shelters/#{shelter_2.id}"
+    expect(page).to have_link("Delete Shelter")
+
     visit "/shelters"
 
     within "#shelter-#{shelter_1.id}" do
-      expect(page).to_not have_content("Delete")
+      expect(page).to_not have_content("Delete Shelter")
     end
 
     within "#shelter-#{shelter_2.id}" do
-      expect(page).to have_content("Delete")
+      expect(page).to have_content("Delete Shelter")
     end
 
     within "#shelter-#{shelter_2.id}" do

@@ -15,16 +15,16 @@ RSpec.describe "when I visit the pets index page", type: :feature do
                                      sex: "Female",
                                      image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/charlotte.jpg")
 
-      visit "/pets/"
+      visit "/pets"
+
+      within "#pet-#{pet_1.id}" do
         expect(page).to have_content("Delete Pet")
+        click_link "Delete Pet"
+      end
 
-      click_link "Delete Pet"
-        expect(current_path).to eq("/pets")
+      expect(current_path).to eq("/pets")
 
-      expect(page).to_not have_content("Charlotte")
-      expect(page).to_not have_content("13")
-      expect(page).to_not have_content("Female")
-
+      expect(page).to_not have_css("#pet-#{pet_1.id}")
     end
   end
 
@@ -42,17 +42,15 @@ RSpec.describe "when I visit the pets index page", type: :feature do
                                      sex: "Female",
                                      image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/charlotte.jpg")
 
-        visit "/shelters/#{shelter_1.id}/pets"
-          expect(page).to have_content("Delete Pet")
+      visit "/shelters/#{shelter_1.id}/pets"
 
+      within "#pet-#{pet_1.id}" do
+        expect(page).to have_content("Delete Pet")
         click_link "Delete Pet"
-          expect(current_path).to eq("/pets")
+      end
 
-        expect(page).to_not have_content("Charlotte")
-        expect(page).to_not have_content("13")
-        expect(page).to_not have_content("Female")
-
-
+      expect(current_path).to eq("/pets")
+      expect(page).to_not have_css("#pet-#{pet_1.id}")
     end
   end
 end

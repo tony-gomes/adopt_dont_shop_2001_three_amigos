@@ -82,9 +82,8 @@ RSpec.describe "When I fill out a completed pet application", type: :feature do
       expect(current_path).to eq("/favorites")
       expect(page).to have_content("Your application was submitted successfully!")
 
-      within ".favorited-pets" do
+      within ".application-submitted-pets" do
         expect(page).to have_content("#{pet_1.name}")
-        expect(page).to have_content("#{pet_2.name}")
       end
     end
   end

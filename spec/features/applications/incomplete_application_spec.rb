@@ -86,8 +86,12 @@ RSpec.describe "When I fill out an incomplete application for a pet", type: :fea
       expect(page).to have_content("Your application was submitted successfully!")
 
       within ".favorited-pets" do
-        expect(page).to have_content("#{pet_1.name}")
+        expect(page).to_not have_content("#{pet_1.name}")
         expect(page).to have_content("#{pet_2.name}")
+      end
+
+      within ".application-submitted-pets" do
+        expect(page).to have_content("#{pet_1.name}")
       end
     end
   end

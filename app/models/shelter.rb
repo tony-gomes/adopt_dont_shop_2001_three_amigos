@@ -14,4 +14,10 @@ class Shelter < ApplicationRecord
     reviews.average(:rating)
   end
 
+  def apps
+    pets.flat_map do |pet|
+      pet.application_pets
+    end
+  end
+
 end

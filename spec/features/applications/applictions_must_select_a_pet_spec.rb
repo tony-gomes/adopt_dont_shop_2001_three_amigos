@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "When I fill out an incomplete application for a pet", type: :feature do
-  describe "and I click on the submit application button" do
+RSpec.describe "When I fill out a completed pet application", type: :feature do
+  describe "but try to submit it without selecting at least one pet" do
     it "I am redirected back to new applicaton form and see an error message that I must complete the form" do
 
       shelter_1 = Shelter.create(
@@ -52,15 +52,12 @@ RSpec.describe "When I fill out an incomplete application for a pet", type: :fea
 
       expect(current_path).to eq("/pet_applications/new")
 
-      within("#pet-#{pet_1.id}") do
-        check "#{pet_1.name}"
-      end
-
       fill_in :name, with: "Jesse"
       fill_in :address, with: "12345 Jesse Ave"
       fill_in :city, with: "Jesse"
       fill_in :state, with: "CO"
       fill_in :zip, with: "80120"
+      fill_in :phone_number, with: "303-867-5309"
       fill_in :description, with: "Because I'm too cool for school"
 
       click_button "Submit Application"
@@ -84,11 +81,6 @@ RSpec.describe "When I fill out an incomplete application for a pet", type: :fea
 
       expect(current_path).to eq("/favorites")
       expect(page).to have_content("Your application was submitted successfully!")
-
-      within ".favorited-pets" do
-        expect(page).to_not have_content("#{pet_1.name}")
-        expect(page).to have_content("#{pet_2.name}")
-      end
 
       within ".application-submitted-pets" do
         expect(page).to have_content("#{pet_1.name}")

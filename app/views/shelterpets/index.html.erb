@@ -1,18 +1,23 @@
 <h1> Pets at <%= @shelter.name %> </h1>
 
-<%= link_to "Create Pet", "/shelters/#{@shelter.id}/pets/new" %><br/>
+  <%= link_to "Create Pet", "/shelters/#{@shelter.id}/pets/new" %><br/>
 
-<section>
-<% @shelter.pets.each do |pet| %>
-    <div class="pet_block">
-    <div class="pet_image"><%= image_tag ( pet.image ) %></div>
-    <h2><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h2>
-    <p>Status: <%= pet.adopt_status %>
-    <p>Age: <%= pet.age %></p>
-    <p><%= pet.sex %></p>
-    <p><%= pet.description %></p>
-    <%= link_to "Edit Pet", "/pets/#{pet.id}/edit" %>
-    <%= link_to "Delete Pet", "/pets/#{pet.id}", method: :delete %><br/>
-  </div>
-<% end %>
-</section>
+  <section>
+    <% @shelter.pets.each do |pet| %>
+      <div id="pet-<%= pet.id %>" class="pet_block">
+        <div class="pet_image"><%= image_tag ( pet.image ) %></div>
+        <h2><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h2>
+
+        <p>Status: <%= pet.adopt_status %>
+        <p>Age: <%= pet.age %></p>
+        <p><%= pet.sex %></p>
+        <p><%= pet.description %></p>
+
+        <%= link_to "Edit Pet", "/pets/#{pet.id}/edit" %>
+
+        <% unless pet.adopt_status == "Pending" %>
+          <%= link_to "Delete Pet", "/pets/#{pet.id}", method: :delete %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>

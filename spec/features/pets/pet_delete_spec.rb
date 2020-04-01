@@ -26,11 +26,7 @@ RSpec.describe "when i visit a pets show page", type: :feature do
 
       expect(current_path).to eq("/pets")
 
-      expect(page).to_not have_css("img[src*='#{pet_1.image}']")
-      expect(page).to_not have_content(pet_1.name)
-      expect(page).to_not have_content(pet_1.age)
-      expect(page).to_not have_content(pet_1.sex)
-
+      expect(page).to_not have_css("#pet-#{pet_1.id}")
     end
   end
 end

@@ -22,3 +22,11 @@
     <% end %>
   </section>
 </section>
+
+<p>Pets at this location: <%= @shelter.number_of_pets %></p>
+<p>Average rating: <% if @shelter.average_rating != nil %>
+  <%=@shelter.average_rating.round(1) %>
+  <% else %>
+  <%= "Be the first to leave a review!" %>
+  <% end %>
+<p>Total applications on file : <%= @shelter.apps.length %>

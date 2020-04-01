@@ -88,16 +88,18 @@ RSpec.describe 'As a visitor' do
         expect(page).to have_content("303-867-5309")
         expect(page).to have_content("Because I'm too cool for school")
 
-        within("#app-#{PetApplication.last.id}-pet-#{@pet_1.id}") do
-          click_link "Approve #{@pet_1.name}'s Application"
+        within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_1.id}" do
+          check "#{@pet_1.name}"
         end
 
-        within("#app-#{PetApplication.last.id}-pet-#{@pet_2.id}") do
-          click_link "Approve #{@pet_2.name}'s Application"
+        within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_2.id}" do
+          check "#{@pet_2.name}"
         end
+
+        click_button "Approve Applications"
 
         expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
-        expect(page).to have_content("The application has been approved!")
+        expect(page).to have_content("The application(s) are approved!")
 
         visit "/pets/#{@pet_1.id}"
 

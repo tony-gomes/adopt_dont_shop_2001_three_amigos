@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "As a visitor" do
+RSpec.describe 'As a visitor' do
   before(:each) do
         shelter_1 = Shelter.create(
           name: "Dog-Haven",
@@ -31,8 +31,8 @@ RSpec.describe "As a visitor" do
           image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg")
   end
 
-  context 'when I visit an application show page I can see pets applied for' do
-    it "And I can see name, address, city, state, zip, phone number, and description" do
+  context 'When a pet has more than one application for them & one application has already been approved' do
+    it 'I can not approve any other applications for that pet but all other applications still remain on file' do
 
       visit "/pets/#{@pet_1.id}"
 
@@ -58,12 +58,12 @@ RSpec.describe "As a visitor" do
 
       expect(current_path).to eq("/pet_applications/new")
 
-      within("#pet-#{@pet_1.id}") do
-        check "#{@pet_1.name}"
-      end
-
       within("#pet-#{@pet_2.id}") do
         check "#{@pet_2.name}"
+      end
+
+      within("#pet-#{@pet_3.id}") do
+        check "#{@pet_3.name}"
       end
 
       fill_in :name, with: "Jesse"
@@ -87,10 +87,6 @@ RSpec.describe "As a visitor" do
       expect(page).to have_content("303-867-5309")
       expect(page).to have_content("Because I'm too cool for school")
 
-      within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_1.id}" do
-        check "#{@pet_1.name}"
-      end
-
       within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_2.id}" do
         check "#{@pet_2.name}"
       end
@@ -100,24 +96,43 @@ RSpec.describe "As a visitor" do
       expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
       expect(page).to have_content("The application(s) are approved!")
 
-      visit "/pets/#{@pet_1.id}"
-
-      within "section" do
-        expect(page).to have_content("Status: Pending")
-      end
-
-      within ".application-hold-message" do
-        expect(page).to have_content("On hold for: #{PetApplication.last.name}")
-      end
-
       visit "/pets/#{@pet_2.id}"
 
       within "section" do
         expect(page).to have_content("Status: Pending")
       end
 
-      within ".application-hold-message" do
-        expect(page).to have_content("On hold for: #{PetApplication.last.name}")
+      visit "/pets/#{@pet_3.id}"
+
+      within "section" do
+        expect(page).to have_content("Status: Application Submitted")
+      end
+
+      visit "/pet_applications/#{PetApplication.last.id}"
+      expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
+
+      expect(page).to have_content("12345 Jesse Ave")
+      expect(page).to have_content("Jesse, CO 80120")
+      expect(page).to have_content("303-867-5309")
+      expect(page).to have_content("Because I'm too cool for school")
+
+      within (".submitted_pet_applications") do
+        expect(page).to have_no_content("#{@pet_2.name}")
+      end
+
+      within "#sub-app-#{PetApplication.last.id}-pet-#{@pet_3.id}" do
+        check "#{@pet_3.name}"
+      end
+
+      click_button "Approve Applications"
+
+      expect(current_path).to eq("/pet_applications/#{PetApplication.last.id}")
+      expect(page).to have_content("The application(s) are approved!")
+
+      visit "/pets/#{@pet_3.id}"
+
+      within "section" do
+        expect(page).to have_content("Status: Pending")
       end
     end
   end

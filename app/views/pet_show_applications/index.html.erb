@@ -1,0 +1,11 @@
+<h2>Applications for <%= @pet.name %></h2>
+
+<section>
+  <% if @pet.pet_applications.size > 0 %>
+    <% @pet.pet_applications.each do |application| %>
+      <%= link_to application.name, "/pet_applications/#{application.id}" %>
+    <% end %>
+  <% else %>
+    <h3>There are no applications for <%= @pet.name %> yet.</h3>
+  <% end %>
+</section>

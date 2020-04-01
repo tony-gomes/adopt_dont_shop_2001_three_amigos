@@ -58,4 +58,27 @@ RSpec.describe "#number_of_pets" do
       expect(shelter_1.average_rating).to eq(4)
     end
   end
+
+  describe "#average_rating" do
+    it "averages all the ratings of a shelter" do
+      shelter_1 = Shelter.create(name: "Dog-Haven",
+                               address:  "1234 Barkers Way",
+                               city: "Beagle",
+                               state: "MA",
+                               zip: "01001")
+      pet_1 = shelter_1.pets.create!(name: "Charlotte",
+                                     age: 13,
+                                     sex: "Female",
+                                     image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/charlotte.jpg")
+
+      application_1 = PetApplication.create({"name"=>"Jesse", "address"=>"12345 Jesse Ave",
+                                             "city"=>"Jesse", "state"=>"CO", "zip"=>"80120", "phone_number"=>"303-867-5309",
+                                             "description"=>"Because I'm too cool for school"})
+
+
+      ApplicationPet.create(pet_id: pet_1.id, pet_application_id: application_1.id)
+
+      expect(shelter_1.apps.length).to eq(1)
+    end
+  end
 end

@@ -37,9 +37,16 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(params[:id])
-    shelter.update(shelter_params)
-
-    redirect_to "/shelters/#{shelter.id}/"
+    if shelter.update(shelter_params)
+      redirect_to "/shelters/#{shelter.id}/"
+    else
+      flash[:error] = ""
+      redirect_back(fallback_location: root_path)
+      missing(shelter_params).each do |param|
+        flash[:error] += "The #{param} field must not be left blank. "
+      end
+      flash[:error]
+    end
   end
 
   private

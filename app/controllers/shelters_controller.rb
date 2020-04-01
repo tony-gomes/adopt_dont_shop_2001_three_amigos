@@ -13,8 +13,17 @@ class SheltersController < ApplicationController
   end
 
   def create
-    Shelter.create(shelter_params)
-    redirect_to '/'
+    shelter = Shelter.new(shelter_params)
+    if shelter.save
+      redirect_to '/'
+    else
+      flash[:error] = ""
+      redirect_back(fallback_location: root_path)
+      missing(shelter_params).each do |param|
+        flash[:error] += "The #{param} field must not be left blank. "
+      end
+      flash[:error]
+    end
   end
 
   def destroy
@@ -28,9 +37,16 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(params[:id])
-    shelter.update(shelter_params)
-
-    redirect_to "/shelters/#{shelter.id}/"
+    if shelter.update(shelter_params)
+      redirect_to "/shelters/#{shelter.id}/"
+    else
+      flash[:error] = ""
+      redirect_back(fallback_location: root_path)
+      missing(shelter_params).each do |param|
+        flash[:error] += "The #{param} field must not be left blank. "
+      end
+      flash[:error]
+    end
   end
 
   private
@@ -41,6 +57,12 @@ class SheltersController < ApplicationController
   def pending_pets
     @shelter.pets.find_all do |pet|
       pet.adopt_status != "Adoptable"
+    end
+  end
+
+  def missing(parameters)
+    parameters.keys.find_all do |key|
+      params[key].empty?
     end
   end
 

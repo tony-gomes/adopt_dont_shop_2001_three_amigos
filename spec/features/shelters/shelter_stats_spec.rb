@@ -15,6 +15,7 @@ RSpec.describe "when I visit a shelter's show page", type: :feature do
                                  state: "CA",
                                  zip: "90210")
 
+
       review_1 = shelter_1.reviews.create!(review_image: "https://via.placeholder.com/150",
                                           title: "test review 1",
                                           rating: 2,
@@ -50,6 +51,9 @@ RSpec.describe "when I visit a shelter's show page", type: :feature do
                                      age: 8,
                                      sex: "Male",
                                      image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg")
+
+     visit("/shelters/#{shelter_1.id}")
+
 
       application_1 = PetApplication.create({"name"=>"Jesse", "address"=>"12345 Jesse Ave",
                                             "city"=>"Jesse", "state"=>"CO", "zip"=>"80120", "phone_number"=>"303-867-5309",

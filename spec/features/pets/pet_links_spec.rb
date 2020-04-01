@@ -18,12 +18,12 @@ RSpec.describe "when i click on the name of a shelter", type: :feature do
       expect(page).to have_content("#{pet_1.name}")
 
     click_link "#{pet_1.name}"
-      expect(current_path).to eq("/pets/#{pet_1.id}")
+    expect(current_path).to eq("/pets/#{pet_1.id}")
 
     visit "/shelters/#{shelter_1.id}/pets"
-      expect(page).to have_content("#{pet_1.name}")
+    expect(page).to have_content("#{pet_1.name}")
 
     click_link "#{pet_1.name}"
-      expect(current_path).to eq("/pets/#{pet_1.id}")
+    expect(current_path).to eq("/pets/#{pet_1.id}")
   end
 end

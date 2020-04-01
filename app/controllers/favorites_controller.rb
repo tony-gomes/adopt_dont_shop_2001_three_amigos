@@ -5,6 +5,7 @@ class FavoritesController < ApplicationController
       Pet.find(id)
     end
     @pending_pets = Pet.where(adopt_status: "Pending")
+    @submitted_pets = Pet.where(adopt_status: "Application Submitted")
   end
 
   def create

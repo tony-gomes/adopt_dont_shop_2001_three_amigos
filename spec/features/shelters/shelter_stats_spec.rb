@@ -51,14 +51,28 @@ RSpec.describe "when I visit a shelter's show page", type: :feature do
                                      sex: "Male",
                                      image: "https://raw.githubusercontent.com/mikez321/adopt_dont_shop_2001/master/app/assets/images/hb.jpg")
 
+      application_1 = PetApplication.create({"name"=>"Jesse", "address"=>"12345 Jesse Ave",
+                                            "city"=>"Jesse", "state"=>"CO", "zip"=>"80120", "phone_number"=>"303-867-5309",
+                                            "description"=>"Because I'm too cool for school"})
+
+      application_2 = PetApplication.create({"name"=>"Mike", "address"=>"12345 Mike Ave",
+                                             "city"=>"Mikeville", "state"=>"CO", "zip"=>"80120", "phone_number"=>"123-456-7890",
+                                             "description"=>"They're my pets already."})
+
+      ApplicationPet.create(pet_id: pet_1.id, pet_application_id: application_1.id)
+      ApplicationPet.create(pet_id: pet_1.id, pet_application_id: application_2.id)
+      ApplicationPet.create(pet_id: pet_2.id, pet_application_id: application_2.id)
+
       visit("/shelters/#{shelter_1.id}")
 
       expect(page).to have_content("Pets at this location: 2")
       expect(page).to have_content("Average rating: 2.3")
-      
+      expect(page).to have_content("Total applications on file : 3")
+
       visit("/shelters/#{shelter_2.id}")
 
       expect(page).to have_content("Pets at this location: 1")
       expect(page).to have_content("Average rating: 5")
+      expect(page).to have_content("Total applications on file : 0")
   end
 end

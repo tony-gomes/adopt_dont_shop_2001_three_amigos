@@ -3,13 +3,13 @@
   <%= form_tag "/pets/#{@pet.id}", method: :patch do %>
     <%= label_tag "Image"%>
     <%= text_field_tag :image, @pet.image%><br/>
-    <%= label_tag "Name" %>
+    <%= label_tag "Name (required)" %>
     <%= text_field_tag :name, @pet.name %><br/>
     <%= label_tag "Description" %>
     <%= text_field_tag :description, @pet.description %><br/>
-    <%= label_tag "Age" %>
+    <%= label_tag "Age (required)" %>
     <%= text_field_tag :age, @pet.age %><br/>
-    <%= label_tag "Sex" %>
+    <%= label_tag "Sex (required)" %>
     <%= text_field_tag :sex, @pet.sex %><br/><br/>
 
     <%= submit_tag "Submit" %>
